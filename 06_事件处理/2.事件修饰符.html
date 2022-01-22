@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+  <style>
+    .box1{
+      height: 50px;
+      background-color: aqua;
+    }
+    .box2{
+      height: 20px;
+      background-color: aquamarine;
+    }
+  </style>
+</head>
+
+<body>
+  <!--
+  --常用: 
+    1. prevent: 阻止事件默认事件
+    2. stop: 阻止事件冒泡
+    3. once: 事件只执行一次
+
+  --不常用:
+    4. capture: 使用事件的捕获模式
+    5. self: 只有event.target是当前元素的时候才触发事件
+    6. passive: 事件的默认行为先触发，在执行回调函数
+   -->
+
+  <div id="root">
+    <a href="http://www.baidu.com" @click.prevent='show'>点我</a>
+
+    <div class="box1" @click='show2'>
+      <a href="http://www.baidu.com" class="box2" @click.stop.prevent='show2'>点我</a>
+    </div>
+
+    <button @click.once='show3'>按钮</button>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#root',
+      data() {
+        return {
+
+        }
+      },
+      methods: {
+        show() {
+          alert('你好')
+        },
+        show2(){
+          console.log('123');
+        },
+        show3(){
+          console.log(123);
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

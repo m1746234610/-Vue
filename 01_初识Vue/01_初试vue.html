@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>vue</title>
+  <script src="../js/vue.js"></script>
+</head>
+
+<body>
+  <!-- ** 容器跟Vue实例是一一对应的 -->
+  <!-- 
+    vue的花括号里可以写js的表达式跟data中声明的属性
+    
+      1. 表达式的定义：一个表达式会产生一个值，可以放在任何一个需要值的地方（表达式有返回值）
+          (1) a
+          (2) a + b
+          (3) x === y ? true : false
+      2. js代码（）
+          (1) if(){}
+          (2) for(){}
+          (3) function(){}
+        
+   -->
+  <div id="root">
+    <!--         这叫插值语法   -->
+    <h1>Hello {{title.toUpperCase()}}</h1>
+    <button @click='add'>点击变化</button>
+  </div>
+
+  <script>
+    Vue.config.productionTip = false // 设置为 false 以阻止 vue 在启动时生成生产提示
+
+    new Vue({
+      el: '#root',
+      data() {
+        return {
+          title: "world"
+        }
+      },
+      methods: {
+        add() {
+          this.title = '张三'
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+
+<body>
+  <!-- 
+    1. Vue提供的常用键盘别名
+      回车 => enter
+      删除 => delete
+      推出 => esc
+      换行 => tab (特殊，要用keydown事件绑定)
+      上 => up
+      下 => down
+      左 => left
+      右 => right
+
+    2. 其他按键的绑定方式： @keyup.e.key（按键名字）
+      注意: 如果是多个单词(CapsLock)，需要写成 @keyup.caps-lock
+
+    3. Vue.config.keyCodes.自定义键名 = 键码，可以自定义按键别名
+   -->
+
+  <div id="root">
+    <!-- 
+      需求：按下回车键，打印input中的value
+     -->
+    <input type="text" placeholder="按回车打印" @keyup='show'>
+
+  </div>
+
+  <script>
+    new Vue({
+      el: '#root',
+      data() {
+        return {
+
+        }
+      },
+      methods: {
+        show(e) {
+          // e.key ==> 每个按键的名字
+          console.log(e.target.value, e.key);
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

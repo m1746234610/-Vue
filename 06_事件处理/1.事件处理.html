@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+
+<body>
+  <!-- 
+    事件的基本使用:
+      1. 事件要配置在methods中，最后也会跑到vm上
+      2. methods中的函数，都是被Vue管理的函数，this指向的是vm 或 组件实例对象
+      3. @click='demo' 和 @click='demo($event)'一样,但后者可以传值
+   -->
+
+  <div id="root">
+    <h2>欢迎来{{name}}</h2>
+    <button @click='hello'>点我有弹窗1</button>
+    <!-- $event是一个关键字，它可以保留函数的event -->
+    <button @click='hello2(66,$event)'>点我有弹窗2</button>
+  </div>
+  <script>
+    Vue.config.productionTip = false
+
+    const vm = new Vue({
+      el: '#root',
+      data() {
+        return {
+          name: '我家玩'
+        }
+      },
+      methods: {
+        hello() {
+          alert('我是弹窗内容')
+        },
+        hello2(num, event) {
+          console.log(num, event);
+          // alert('我是弹窗内容' + num)
+        }
+      }
+    })
+
+  </script>
+</body>
+
+</html>

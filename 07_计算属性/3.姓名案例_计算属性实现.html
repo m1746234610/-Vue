@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+  <style>
+    * {
+      margin-top: 10px;
+    }
+
+    .box {
+      /* margin-left: 30px; */
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 
+    计算属性:
+      1.定义: 属性不存在，是根据已有属性计算得来的
+      2.原理: 根据Object.defineproperty提供的getter和setter
+      3.getter什么时候被调用:
+        （1）初次调用计算属性时
+        （2）计算属性中依赖的属性发生改变的时候
+      4.优点: 跟methods方法实现相比，计算属性有缓存，可以复用，效率更高，测试方便
+      5.备注:
+        （1）计算属性最终的值会放在vm上，可以直接调用
+        （2）如果计算属性被修改，需要用到set
+   -->
+
+  <div id="root">
+    <div class="box1">
+      姓: <input type="text" v-model="firstName" placeholder="输入姓">
+    </div>
+    <div class="box2">
+      名: <input type="text" v-model="lastName" placeholder="输入名">
+    </div>
+    <div class="box">
+      全名: {{fullName}}</br>
+      全名: {{fullName}}</br>
+      全名: {{fullName}}</br>
+      全名: {{fullName}}</br>
+      全名: {{fullName}}</br>
+    </div>
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: '#root',
+      data() {
+        return {
+          firstName: '张',
+          lastName: '三'
+        }
+      },
+      computed: {
+        // 计算属性可以写成对象，也可以写成函数
+        fullName: {
+          get() {
+            console.log('get被调用了');
+            return this.firstName + '-' + this.lastName
+          },
+          set(value) {
+            console.log(value);
+            let arr = value.split('-')
+            this.firstName = arr[0]
+            this.lastName = arr[1]
+          }
+        }
+      }
+    })
+
+
+  </script>
+</body>
+
+</html>

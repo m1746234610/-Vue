@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数据代理</title>
+  <script src="../js/vue.js"></script>
+</head>
+
+<body>
+  <!-- 1. 回顾Object.defineProperty -->
+  <!-- <script>
+    let number = 18
+    let person = {
+      name: '张三',
+      sex: '男'
+    }
+    Object.defineProperty(person, 'age', {
+      // value: 18,
+
+      // 普通配置向: 
+      enumerable: true, // 是否枚举，默认false
+      // writable: true, // 是否修改，默认false
+      configurable: true, // 是否删除，默认false
+
+      // 高级配置项:
+
+      // 当age属性被访问的时候调用，且返回值为age属性的值
+      get() {
+        console.log('get');
+        return number
+      },
+
+      // 当age属性被修改的时候调用，且可以获取到修改的值
+      set(value) {
+        console.log('set');
+        number = value
+      }
+    })
+    console.log(person);
+  </script> -->
+
+  <!-- 2. 何为数据代理: 通过一个对象代理对另一个对象中属性的操作（读写） -->
+  <!-- <script>
+    let obj = { x: 100 }
+    let obj2 = { y: 100 }
+
+    Object.defineProperty(obj2, 'x', {
+      get() {
+        return obj.x
+      },
+      set(val) {
+        obj.x = val
+      }
+    })
+  </script> -->
+
+  <!-- 3. Vue中的数据代理 -->
+  <!-- 
+   1. Vue中的数据代理
+      - 通过vm对象来代理_data中的属性的操作 （读/写）
+   2. Vue中数据代理的好处
+      - 更加方便的操作data中的数据
+   3. 基本原理
+      1. 在vm身上绑定_data中的属性
+      2. 给添加到vm身上的属性绑定Object.defineProperty的getter和setter
+      3. 通过getter和setter对_data中的数据进行操作（读/写）
+   -->
+
+  <div id="root">
+    <h2>学校名称：{{name}}</h2>
+    <h2>学校名称：{{address}}</h2>
+  </div>
+  <script>
+    Vue.config.productionTip = false
+    const vm = new Vue({
+      el: '#root',
+      data() {
+        return {
+          name: '一实小',
+          address: '浚县'
+        }
+      },
+      methods: {
+
+      }
+    })
+  </script>
+</body>
+
+</html>

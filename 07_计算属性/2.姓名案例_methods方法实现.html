@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+  <style>
+    * {
+      margin-top: 10px;
+    }
+
+    .box {
+      /* margin-left: 30px; */
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root">
+    <div class="box1">
+      <!-- 姓: <input type="text" v-model="firstName" @keydown='_firstName(firstName)' placeholder="输入姓"> -->
+      姓: <input type="text" v-model="firstName" placeholder="输入姓">
+    </div>
+    <div class="box2">
+      名: <input type="text" v-model="lastName" placeholder="输入名">
+    </div>
+    <div class="box">
+      <!-- 全名: {{firstName}}-{{lastName}} -->
+      全名: {{name()}}</br>
+      全名: {{name()}}</br>
+      全名: {{name()}}</br>
+      全名: {{name()}}</br>
+      全名: {{name()}}</br>
+    </div>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#root',
+      data() {
+        return {
+          firstName: '张',
+          lastName: '三'
+        }
+      },
+      methods: {
+        _firstName(value) {
+          this.firstName = value.slice(0, 2)
+          console.log(value);
+        },
+        name(){
+          console.log('name');
+          return this.firstName.slice(0,3) + '-' + this.lastName
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

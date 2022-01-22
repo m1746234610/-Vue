@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue模板语法</title>
+  <script src="../js/vue.js"></script>
+</head>
+
+<body>
+  <div id="root">
+    <h1>插值语法</h1>
+    <h3>你好,{{name}}</h3>
+
+    <h2>指令语法</h2>
+    <!-- **
+      1.v-bind可以给标签里任何属性去动态的绑定值
+      2.由v-bind绑定的属性，后边的引号中的值会被当成表达式去执行
+
+      :href='url'：将表达式url执行后的结果绑定到href属性的值上
+    -->
+
+    <a :href="school.url.toUpperCase()" :x='hello'>点击去{{school.name}}上学</a>
+    <a :href="Date.now()" :x='hello.length'>点击2</a>
+  </div>
+
+  <script>
+    Vue.config.productionTip = false // 设置为 false 以阻止 vue 在启动时生成生产提示
+
+    new Vue({
+      el: '#root',
+      data() {
+        return {
+          name: 'jack',
+          school: {
+            name: '一实小',
+            url: 'https://www.baidu.com'
+          },
+          hello: '你好'
+        }
+      },
+      methods: {
+
+      }
+    })
+  </script>
+</body>
+
+</html>
