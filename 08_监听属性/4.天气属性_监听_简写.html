@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+
+<body>
+  <div id="root">
+    <h1>今天天气很{{info}}</h1>
+    <button @click='option'>切换天气</button>
+
+    <h1>{{numbers.a}}</h1>
+    <button @click='numbers.a++'>点击a+1</button>
+
+    <h1>{{numbers.b}}</h1>
+    <button @click='numbers.b++'>点击b+1</button>
+  </div>
+
+  <script>
+    let num = 0
+    const vm = new Vue({
+      el: '#root',
+      data() {
+        return {
+          isHot: true,
+          numbers: {
+            a: 10,
+            b: 5
+          }
+        }
+      },
+      methods: {
+        option() {
+          this.isHot = !this.isHot
+        }
+      },
+      computed: {
+        info() {
+          return this.isHot ? '炎热' : '凉爽'
+        }
+      },
+      watch: {
+        // 正常写法
+        // isHot: {
+        //   // immediate: true, // 初始化时让handler调用
+        //   // deep: true, // 深度监听
+        //   handler(fresh, old) {
+        //     console.log(fresh, old);
+        //   }
+        // },
+
+        // 简写: 无法进行其他属性配置，只能执行handler函数
+        isHot(fresh, old) {
+          console.log(fresh, old);
+        },
+        // 简写
+        'numbers.a'() {
+          console.log('a改变了');
+        },
+        'numbers.b': {
+          handler() {
+            console.log('b改变了');
+          }
+        },
+        'numbers': {
+          deep: true,// 开启深度监听
+          handler() {
+            console.log('numbers改变了');
+          }
+        },
+      }
+    })
+
+    // 简写
+    vm.$watch('isHot', function (fresh, old) {
+      console.log(fresh, old)
+    })
+  </script>
+</body>
+
+</html>

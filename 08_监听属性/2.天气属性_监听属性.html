@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+
+<body>
+  <!-- 
+    监听属性
+      1.当被监听的属性发生变化时，回调函数被调用
+      2.监听的属性存在，才能进行监听！！（不存在也不会报错）
+      3.写法
+        （1）在实例中添加watch配置
+        （2）在vm.$watch('属性',{})进行监听
+   -->
+  <div id="root">
+    <h1>今天天气很{{info}}</h1>
+    <button @click='option'>切换天气</button>
+  </div>
+
+  <script>
+    let num = 0
+    const vm = new Vue({
+      el: '#root',
+      data() {
+        return {
+          isHot: true
+        }
+      },
+      methods: {
+        option() {
+          this.isHot = !this.isHot
+        }
+      },
+      computed: {
+        info() {
+          return this.isHot ? '炎热' : '凉爽'
+        }
+      },
+      //* watch中有默认的配置和方法可以使用
+      watch: {
+        isHot: {
+          immediate: true, // 初始化时让handler调用
+          // 当isHot发生改变，就会调用handker方法
+          handler(fresh, old) { //* watch中默认方法
+            //* fresh: 改变后的值  old: 改变之前的值
+            console.log(fresh, old);
+          }
+        }
+      }
+    })
+
+    // vm.$watch('isHot', {
+    //   immediate: true, // 初始化时让handler调用
+    //   // 当isHot发生改变，就会调用handker方法
+    //   handler(fresh, old) { //* watch中默认方法
+    //     //* fresh: 改变后的值  old: 改变之前的值
+    //     console.log(fresh, old);
+    //   }
+    // })
+
+  </script>
+</body>
+
+</html>

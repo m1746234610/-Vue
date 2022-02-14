@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+
+<body>
+  <div id="root">
+    <h2>当前的n值是：{{n}}</h2>
+    
+    <button @click="add">点我n+1</button>
+  </div>
+  <script>
+    Vue.config.productionTip = false
+    const vm = new Vue({
+      el: '#root',
+      data() {
+        return {
+          n: 1
+        }
+      },
+      methods: {
+        add(){
+          this.n++
+        }
+      },
+      // 初始化一些规则，数据代理，数据监听还没开始，但vm已经创建了
+      beforeCreate() {
+        console.log('beforCreate');
+      },
+      // 数据代理，数据监听已经完成，vm身上已经有了数据跟方法了
+      created() {
+        console.log('created');
+      },
+      // Vue开始解析模板，所有对dom的操作最终都不会生效，虚拟DOM在内存中
+      beforeMount() {
+        
+      },
+      // Vue模板解析完成，将虚拟DOM转换成真实DOM，并挂载到页面上，所有对dom的操作都会生效。开启定时器，订阅消息，发起网络请求，绑定自定义事件等初始化操作
+      mounted() {
+
+      },
+      // 数据已经更新完毕，只是没有跟页面保持同步
+      beforeUpdate() {
+        console.log('beforeUpdate');
+      },
+      // 数据和页面保持同步
+      updated() {
+        console.log('updated');
+      },
+      // 可以访问data数据，调用methods的方法，但不会触发页面的更新，关闭定时器，取消订阅，解绑自定义事件
+      beforeDestroy() {
+        
+      },
+      // vm销毁完成
+      destroyed() {
+        
+      },
+    })
+
+
+  </script>
+</body>
+
+</html>

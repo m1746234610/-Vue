@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+
+<body>
+  <div id="root">
+    <h2>学校:{{name}}</h2>
+    <h2>学校:{{address}}</h2>
+  </div>
+  <script>
+    const vm = new Vue({
+      el: '#root',
+      data() {
+        return {
+          name: '一实小',
+          address: '浚县',
+          student: {
+            name: '穆家宝',
+            age: 23,
+            sex: '男'
+          }
+        }
+      },
+      methods: {
+
+      }
+    })
+  </script>
+</body>
+
+</html>

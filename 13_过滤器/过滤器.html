@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src='../js/vue.js'></script>
+  <script src="../js/dayjs.min.js"></script>
+</head>
+
+<body>
+  <!-- 
+    过滤器:
+      定义: 对要显示的数据进行特定的格式化后在显示（适用于一些简单逻辑的处理）
+      语法: 
+          1.注册过滤器: Vue.filter(name,function)、Vue(filters:{})
+          2.使用过滤器: {{xxx | 过滤器名字}} 或 v-bind:属性 = 'xxx | 过滤器名字'
+      备注: 
+          1.过滤器可以接受额外参数，多个过滤器可以串联
+          2.不会改变原数据，是产生新的对应的数据
+   -->
+
+  <div id="root">
+    <!-- 计算属性 -->
+    <h2>当前时间为: {{format}}</h2>
+    <!-- methods -->
+    <h2>当前时间为: {{getTime()}}</h2>
+    <!-- 过滤器 -->
+    <h2>当前时间为: {{time | filTime}}</h2>
+    <!-- 过滤器（传参） -->
+    <h2>当前时间为: {{time | filTime('YYYY年MM月DD日')}}</h2>
+    <!-- 多个过滤器串联 -->
+    <h2>当前时间为: {{time | filTime('YYYY年MM月DD日') | sliTime}}</h2>
+    <!-- 
+      过滤器的流程: 将time数据当作参数传给filTime并调用这个函数，最后生成的返回值会将插值语法中的数据全部替换掉(如果有多个过滤器，会把返回值当参数在传给下一个过滤器，以此类推)
+     -->
+  </div>
+
+  <div id="root2">
+    <h2 :x='msg | sliTime'>{{msg | sliTime}}</h2>
+  </div>
+  <script>
+    Vue.config.productionTip = false
+    // 全局过滤器
+    Vue.filter('sliTime', function (value) {
+      return value.slice(0, 4)
+    })
+
+    new Vue({
+      el: '#root',
+      data() {
+        return {
+          time: Date.now()
+        }
+      },
+      methods: {
+        getTime() {
+          return dayjs(this.time).format('YYYY年MM月DD日 HH:mm:ss')
+        }
+      },
+      computed: {
+        format() {
+          // return dayjs().format('YYYY年MM月DD日 HH:mm:ss') // 当前时间
+          return dayjs(this.time).format('YYYY年MM月DD日 HH:mm:ss')
+        }
+      },
+      // 局部过滤器
+      filters: {
+        // filTime可以进行传参，默认第一位是 | 之前的数据(time)
+        // es6有形参默认值，如果str没有实参，就使用默认值
+        filTime(value, str = 'YYYY年MM月DD日 HH:mm:ss') {
+          return dayjs(value).format(str)
+        }
+      }
+    })
+
+    new Vue({
+      el: '#root2',
+      data() {
+        return {
+          msg: 'hello,world'
+        }
+      },
+    })
+  </script>
+</body>
+
+</html>

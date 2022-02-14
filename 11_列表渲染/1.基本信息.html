@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+
+  <style>
+    ul,
+    li {
+      font: bold 20px "微软";
+      list-style: none
+    }
+  </style>
+</head>
+
+<body>
+  <!--
+    v-for
+      用法: 用于展示列表数据
+      写法: v-for="(key,index) in arrs" :key="xxx(index)"
+      注释: 可以遍历数组，对象，字符串，指定次数
+
+    面试题: vue中key的作用（key的原理）？
+    给列表增加一个唯一的标识，vue里是通过虚拟dom进行diff，规则如下:
+    1. 对比规则:
+        (1).旧虚拟dom找到了新虚拟dom中相同的key，若虚拟dom中内容没变，使用之前的真实dom，如果虚拟dom变了，就重新生成新的真实dom
+
+        (2).旧虚拟dom中没有找到新虚拟dom中相同的key，直接生成新的真实dom
+    
+    2. 使用index为key的隐患
+        1. 如果对数据进行逆向添加、逆向删除等破坏下标顺序的操作，会产生没有必要的真实dom更新 ===> 界面没有问题，但效率低
+        
+        2. 如果结构中包含输入类dom。会产生错误dom更新 ===> 界面出现问题
+
+    3. 如何选择key
+        1. 最好使用每条数据的唯一标识作为key，比如手机号，身份证，学号等
+        2. 如果不破坏数据下标顺序或仅用于展示，可以使用index作为key
+  -->
+  <div id="root">
+    <h1>基本信息</h1>
+    <ul>
+      <li v-for="key in arrs" :key='key.id'>{{key.name}}-{{key.age}}</li>
+    </ul>
+
+    <h1>基本信息2</h1>
+    <ul>
+      <li v-for="(val,key) in obj" :key='key'>{{key}}-{{val}}</li>
+    </ul>
+
+    <h1>基本信息3</h1>
+    <ul>
+      <li v-for="(val,key) in str" :key='key'>{{key}}-{{val}}</li>
+    </ul>
+  </div>
+  <script>
+    new Vue({
+      el: '#root',
+      data() {
+        return {
+          arrs: [
+            {
+              id: '001',
+              name: '张三',
+              age: 22
+            }, {
+              id: '002',
+              name: '李四',
+              age: 15
+            }, {
+              id: '003',
+              name: '王五',
+              age: 25
+            }],
+          obj: {
+            name: '奥迪',
+            title: '很好',
+            age: 5
+          },
+          str: 'hello'
+        }
+      },
+      methods: {
+      }
+    })
+  </script>
+</body>
+
+</html>

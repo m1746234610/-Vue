@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+
+<body>
+  <!-- 
+    vue可以监听多级属性变化
+    vue中的watch默认不能监听多级属性变化
+    使用watch可以根据数据结构决定是否采用深度监听
+   -->
+  <div id="root">
+    <h1>今天天气很{{info}}</h1>
+    <button @click='option'>切换天气</button>
+
+    <h1>{{numbers.a}}</h1>
+    <button @click='numbers.a++'>点击a+1</button>
+
+    <h1>{{numbers.b}}</h1>
+    <button @click='numbers.b++'>点击b+1</button>
+  </div>
+
+  <script>
+    let num = 0
+    const vm = new Vue({
+      el: '#root',
+      data() {
+        return {
+          isHot: true,
+          numbers: {
+            a: 10,
+            b: 5
+          }
+        }
+      },
+      methods: {
+        option() {
+          this.isHot = !this.isHot
+        }
+      },
+      computed: {
+        info() {
+          return this.isHot ? '炎热' : '凉爽'
+        }
+      },
+      watch: {
+        isHot: {
+          // immediate: true, // 初始化时让handler调用
+          handler(fresh, old) {
+            console.log(fresh, old);
+          }
+        },
+        // 监听多级对象单个属性变化
+        'numbers.a': {
+          handler() {
+            console.log('a改变了');
+          }
+        },
+        'numbers.b': {
+          handler() {
+            console.log('b改变了');
+          }
+        },
+        // 监听多级对象所有属性变化
+        'numbers': {
+          deep:true,// 开启深度监听
+          handler() {
+            console.log('numbers改变了');
+          }
+        },
+      }
+    })
+  </script>
+</body>
+
+</html>

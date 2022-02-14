@@ -19,6 +19,14 @@
 </head>
 
 <body>
+  <!-- 
+    computeds和watch的区别:
+      1. computeds能实现的功能，watch也能实现
+      2. watch实现的功能，computeds不一定能实现，比如异步操作
+    重要原则:
+      1. 所有Vue管理的函数，最好写成普通函数，这样this才会指向vm 或 组件实例对象
+      2. 不被Vue管理的函数(定时器回调，ajax回调，Promise回调等)，最好写成箭头函数，这样this才会指向vm 或 组件实例对象     
+   -->
   <div id="root">
     <div class="box1">
       姓: <input type="text" v-model="firstName" placeholder="输入姓">
@@ -37,34 +45,19 @@
       data() {
         return {
           firstName: '张',
-          lastName: '三'
+          lastName: '三',
+          fullName:'张-三'
         }
       },
-      computed: {
-        // 计算属性可以写成对象，也可以写成函数
-
-        // 完整写法:
-        // fullName: {
-        //   get() {
-        //     console.log('get被调用了');
-        //     return this.firstName + '-' + this.lastName
-        //   },
-        //   set(value) {
-        //     console.log(value);
-        //     let arr = value.split('-')
-        //     this.firstName = arr[0]
-        //     this.lastName = arr[1]
-        //   }
-        // }
-
-        // 简写
-        fullName(){
-          console.log('get被调用了')
-          return this.firstName + '-' + this.lastName
-
-          //** 这里，return的值是传给了setTimeout函数，所以视图上没有任何修改
+      watch: {
+        firstName(fresh) {
           setTimeout(() => {
-            return this.firstName + '-' + this.lastName
+            this.fullName = fresh + '-' + this.lastName
+          }, 1000);
+        },
+        lastName(fresh) {
+          setTimeout(() => {
+            this.fullName = this.firstName + '-' + fresh
           }, 1000);
         }
       }

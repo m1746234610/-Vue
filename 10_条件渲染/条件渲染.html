@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+
+<body>
+  <!-- 
+    1.v-if
+      特点: 1.可以配合v-else/v-else-if，且结构不能被打断
+            2.节点直接从dom树中消失
+    2.v-show
+      特点: 1.节点不会消失，只是配置了display:none
+
+      使用场景: 数据来回切换的频率高就使用v-show，不高就使用v-if
+   -->
+
+  <div id="root">
+    <!-- <h1 v-if='false'>{name}}</h1>
+    <h1 v-show='false'>{name2}}</h1>
+
+    <h1>{{n}}</h1>
+    <button @click='n++'>点我n+1</button>
+
+    <div v-if="n === 1">n===1</div>
+    <div v-if="n === 2">n===2</div>
+    <div v-if="n === 3">n===3</div> -->
+
+    <button @click='n++'>点我n+1</button>
+    <!-- 
+      template不会破坏元素结构：template不会出现在dom树里
+      template只能和v-if配合，不能跟v-show配合
+     -->
+    <template v-if='n===1'>
+      <h2>你好</h2>
+      <h2>你好2</h2>
+      <h2>你好3</h2>
+    </template>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#root',
+      data() {
+        return {
+          name: '你好',
+          name2: '你好',
+          a: false,
+          b: false,
+          n: 0
+        }
+      },
+      methods: {
+      }
+    })
+  </script>
+</body>
+
+</html>

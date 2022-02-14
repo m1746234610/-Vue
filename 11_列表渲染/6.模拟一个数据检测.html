@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // let obj = {
+    //   name: '古'
+    // }
+    // Object.defineProperty(obj, 'name', {
+    //   // value: '古',
+    //   get() {
+    //     return obj.name
+    //   },
+    //   set(val) {
+    //     console.log('名字变了');
+    //   }
+    // })
+
+
+    //* 模仿vue中的观察者模式写一个数据监测
+    let data = {
+      name: '一实小',
+      address: '浚县',
+      student: {
+        name: '穆家宝',
+        age: 23,
+        sex: '男'
+      }
+    }
+
+    let obs = new Obsever(data)
+    function Obsever(obj) {
+      const keys = Object.keys(obj)
+      keys.forEach(k => {
+        if (typeof obj[k] === 'object') {
+
+        } else {
+          // 这里this指向的是实例对象
+          Object.defineProperty(this, k, {
+            get() {
+              return obj[k]
+            },
+            set(val) {
+              console.log('观察到数据发生改变，需要重新解析模板，生成新的虚拟Dom进行对比....');
+              obj[k] = val
+            }
+          })
+        }
+      })
+    }
+
+    let obj2 = {
+      a: 1,
+      b: 1,
+      c: {
+        d: 1,
+        f: {
+          e: 1
+        },
+        g: [{ h: 1 }]
+      },
+    }
+    let arr2 = []
+    function fn(obj) {
+      let arr = Object.keys(obj)
+      arr.forEach(k => {
+        console.log(k);
+        if (typeof obj[k] !== 'object') {
+          arr2.push(k)
+        } else {
+          fn(obj[k])
+        }
+      })
+    }
+    fn(obj2)
+    console.log(arr2);
+  </script>
+</body>
+
+</html>

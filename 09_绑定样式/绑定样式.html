@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    div {
+      margin-top: 20px;
+    }
+
+    .box {
+      width: 400px;
+      height: 100px;
+      border: 1px solid #000;
+    }
+
+    .mood1 {
+      background: rgb(253, 253, 3);
+    }
+
+    .mood2 {
+      background: rgb(241, 8, 8);
+    }
+
+    .mood3 {
+      background: rgb(128, 61, 214);
+    }
+
+    .text1 {
+      font: bold 30px auto;
+    }
+
+    .text2 {
+      color: blueviolet;
+    }
+
+    .text3 {
+      border-radius: 20px;
+    }
+  </style>
+
+  <script src="../js/vue.js"></script>
+</head>
+
+<body>
+  <div id="root">
+    <!-- 样式绑定--字符串写法: 适用于: 样式类名不确认，需要动态绑定 -->
+    <div class="box" :class='mood' @click='optionMood'>text</div>
+    <!-- 样式绑定--数组写法: 适用于: 要绑定的样式个数不确定，类名也不确定 -->
+    <div class="box" :class='classArr'>text
+      <div>
+        <button @click='text1'>text1</button>
+        <button @click='text2'>text2</button>
+        <button @click='text3'>text3</button>
+      </div>
+    </div>
+    <!-- 样式绑定--对象写法: 适用于: 绑定的样式个数确认，类名名确认，否使用不确认 -->
+    <div class="box" :class='classObj'>text</div>
+
+    
+    <!-- style绑定--对象写法 -->
+    <div class="box" :style="styleObj">text</div>
+    <!-- style绑定--数组写法 -->
+    <div class="box" :style="[styleObj,styleObj2]">text</div>
+
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: '#root',
+      data() {
+        return {
+          mood: 'mood1',
+          classArr: ['text1', 'text2', 'text3'],
+          classObj: {
+            text1: true,
+            text2: false,
+          },
+          styleObj: {
+            fontSize: '40px',
+            color: 'red'
+          },
+          styleObj2: {
+            backgroundColor: 'rgb(100,100,100)'
+          }
+        }
+      },
+      methods: {
+        optionMood() {
+          const arr = ['mood1', 'mood2', 'mood3']
+          let index = Math.floor(Math.random() * 3)
+          this.mood = arr[index]
+          console.log(index);
+        },
+        text1() {
+          if (this.classArr[0] === 'text1') {
+            this.classArr.shift()
+          } else {
+            this.classArr.unshift('text1')
+          }
+        },
+        text2() {
+          if (this.classArr[1] === 'text2') {
+            this.classArr.splice(1, 1)
+          } else {
+            this.classArr.splice(1, 0, 'text2')
+          }
+          console.log(this.classArr);
+        },
+        text3() {
+          if (this.classArr[2] === 'text3') {
+            this.classArr.splice(2, 1)
+          } else {
+            this.classArr.splice(2, 0, 'text3')
+          }
+        },
+
+      }
+    })
+  </script>
+</body>
+
+</html>

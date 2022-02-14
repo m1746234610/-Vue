@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+
+<body>
+  <!-- 
+    Vue.set 跟 vm.$set 也可以更改数组类型的数据
+
+    vue检测数据数据的原理:
+      将可以改变数组的方法进行了包装并添加到了Vue原型上，当调用了这些方法之后，除了会调用原本Array上的方法，vue还重新解析了模板，生成虚拟dom并进行diff
+   -->
+  <div id="root">
+    <h2>学校:{{name}}</h2>
+    <h2>学校:{{address}}</h2>
+    <h2>名字:{{student.name}}</h2>
+    <h2 v-if="student.sex">性别:{{student.sex}}</h2>
+    <h2>年龄:{{student.age}}</h2>
+    <h2>爱好:</h2>
+    <ul>
+      <li v-for="(h,index) in student.hobby" :key="index">
+        {{h}}
+      </li>
+    </ul>
+  </div>
+  <script>
+    const vm = new Vue({
+      el: '#root',
+      data() {
+        return {
+          name: '一实小',
+          address: '浚县',
+          student: {
+            name: '穆家宝',
+            age: 23,
+            sex: '男',
+            hobby: ['抽烟', '喝酒', '烫头']
+          }
+        }
+      },
+      methods: {
+
+      }
+    })
+  </script>
+</body>
+
+</html>

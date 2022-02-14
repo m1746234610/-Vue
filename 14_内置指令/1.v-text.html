@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src='../js/vue.js'></script>
+</head>
+
+<body>
+  <!-- 
+    vue指令: 
+      v-bind: 单向绑定解析表达式，简写 :xxx
+      v-model: 双向数据绑定
+      v-for: 可进行列表渲染
+      v-if: 控制元素是否存在
+      v-else: 控制元素是否存在
+      v-show: 控制元素是否显示
+      v-on: 绑定事件监听，简写@
+   -->
+  <!-- v-text会替换节点中的所有内容,{{xxx}}不会 -->
+  <div id="root">
+    <div class="box">你好,{{mag}}</div>
+    <div v-text='mag'>你好</div>
+  </div>
+  <script>
+    Vue.config.productionTip = false
+    new Vue({
+      el: '#root',
+      data() {
+        return {
+          mag: '你好'
+        }
+      },
+      methods: {
+        down() {
+          console.log(111);
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

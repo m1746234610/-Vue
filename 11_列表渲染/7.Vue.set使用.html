@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+
+<body>
+  <!-- 
+    Vue.set(target,key,val) === vm.$set(target,key,val)
+    作用：可以向原数据中添加新的'响应式'数据
+    局限：无法在data或vm上添加，只能在data中的对象里添加
+   -->
+  <div id="root">
+    <h2>学校:{{name}}</h2>
+    <h2>地址:{{address}}</h2>
+    <!-- <h2>校长:{{leader}}</h2> -->
+    <h2>名字:{{student.name}}</h2>
+    <button @click.once='sexShow'>点击添加性别</button>
+    <h2 v-if="student.sex">性别:{{student.sex}}</h2>
+    <h2>年龄:{{student.age}}</h2>
+  </div>
+  <script>
+    const vm = new Vue({
+      el: '#root',
+      data() {
+        return {
+          name: '一实小',
+          address: '浚县',
+          student: {
+            name: '穆家宝',
+            // sex: '男'
+            age: 23,
+          }
+        }
+      },
+      methods: {
+        sexShow() {
+          this.$set(this.student, "sex", "男")
+          // Vue.set(this.student, "sex", "男")
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
