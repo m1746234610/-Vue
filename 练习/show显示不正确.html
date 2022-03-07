@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+
+<body>
+  <div id="root">
+    <div>
+      <div @click="click" ref="t2">change</div>
+      <div v-if="state === 0">
+        some data
+        <div key='first' v-show="hasChildren"></div>
+      </div>
+      <div v-else>
+        <div ref="t" key='second' style="display: flex;">display: {{ val }}</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    Vue.config.productionTip = false
+    new Vue({
+      el: '#root',
+      data: {
+        state: 0,
+        val: '',
+        hasChildren: true
+      },
+      methods: {
+        click() {
+          this.state = this.state === 0 ? 1 : 0
+          // 
+          this.$nextTick(() => {
+            console.log(this.$refs.t.style);
+            this.val = this.$refs.t.style.display
+          })
+          // console.log(123)
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

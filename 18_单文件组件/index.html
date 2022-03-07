@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>练习一下单文件组件的语法</title>
+</head>
+<body>
+  <div id="root"></div>
+  
+  <!-- 
+    为什么最后引入vue.js、main.js？
+    1.要先有模板，才能根据模板进行编译
+    2.没有引入vue.js，文件里单文件组件就不会工作
+   -->
+  <script src="../js/vue.js"></script>
+  <script src="./main.js"></script>
+</body>
+</html>

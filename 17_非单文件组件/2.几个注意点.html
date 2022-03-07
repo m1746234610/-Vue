@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+
+<body>
+  <!-- 
+    几个注意点:
+      1. 组件命名
+          一个单词组成
+              1. 全部小写
+              2. 首字母大写
+          多个单词组成
+              1.kebab-case命名
+              2.所有单词首字母大写
+          总结：
+            （1）组件名尽可能回避HTML中已有的元素名称
+            （2）可以使用name配置项指定组件在开发者工具中呈现的名字
+     
+      2. 关于组件标签
+          1.<school></school>
+          2.<school/>
+          注: 不用脚手架时，<school/>会导致后续组件不能渲染
+      
+      3. 一个简写方式
+          const school = Vue.extend({opintes}) === const school = opintes
+   -->
+
+  <div id="root">
+    <h1>{{msg}}</h1>
+    <hr>
+    <school></school>
+  </div>
+
+  <script>
+    Vue.config.productionTip = false
+
+    const school = Vue.extend({
+      template: `
+        <div>
+          <h2>学校名称: {{schoolName}}</h2>
+          <h2>学校地址: {{address}}</h2>
+        </div>
+      `,
+      data() {
+        return {
+          schoolName: '一实小',
+          address: '浚县'
+        }
+      }
+    })
+
+    new Vue({
+      el: '#root',
+      data() {
+        return {
+          msg: 'hello'
+        }
+      },
+      components: {
+        school,
+      }
+    })
+
+  </script>
+</body>
+
+</html>
